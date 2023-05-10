@@ -1,10 +1,17 @@
 from unittest import TestCase
 
 # Tests another import - e.g call from multiple files in real life => should still be the same cache
-from tests.data import reset_counter
+from tests.data import MyTestClass, reset_counter
 from tests.data import sync_func
 from tests.data import sync_func as sync_func_second_import
-from tests.data import sync_func_clear_arg_cache, sync_func_clear_cache, sync_func_use_cache
+from tests.data import (
+    sync_func_clear_arg_cache,
+    sync_func_clear_cache,
+    sync_func_use_cache,
+    sync_func_with_dict,
+    sync_func_with_list,
+    sync_func_with_object,
+)
 
 
 class TestLruCache(TestCase):
@@ -119,3 +126,50 @@ class TestLruCache(TestCase):
 
         self.assertEqual(result1_fourth, "one-one-3")
         self.assertEqual(result2_fourth, "two-two-2")
+
+    def test_lru_cache_with_list(self) -> None:
+        # Arrange
+        reset_counter()
+
+        # Act
+        result1 = sync_func_with_list(["one", "two"])
+        result2 = sync_func_with_list(["one", "two"])
+        result3 = sync_func_with_list(["three", "four"])
+
+        # Assert
+        self.assertEqual(result1, 1)
+        self.assertEqual(result2, 1)
+        self.assertEqual(result3, 2)
+
+    def test_lru_cache_with_dict(self) -> None:
+        # Arrange
+        reset_counter()
+
+        # Act
+        result1 = sync_func_with_dict({"keyOne": "valueOne", "keyTwo": "valueTwo"})
+        result2 = sync_func_with_dict({"keyOne": "valueOne", "keyTwo": "valueTwo"})
+        result3 = sync_func_with_dict({"keyOne": "otherValueOne", "keyTwo": "valueTwo"})
+
+        # Assert
+        self.assertEqual(result1, 1)
+        self.assertEqual(result2, 1)
+        self.assertEqual(result3, 2)
+
+    def test_lru_cache_with_object(self) -> None:
+        # Arrange
+        reset_counter()
+        object_one = MyTestClass("object_one")
+        similar_object_one = MyTestClass("object_one")  # Test with different reference
+        object_two = MyTestClass("object_two")
+
+        # Act
+        result1 = sync_func_with_object(object_one)
+        result2 = sync_func_with_object(object_one)
+        result3 = sync_func_with_object(similar_object_one)
+        result4 = sync_func_with_object(object_two)
+
+        # Assert
+        self.assertEqual(result1, 1)
+        self.assertEqual(result2, 1)
+        self.assertEqual(result3, 1)
+        self.assertEqual(result4, 2)
