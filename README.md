@@ -17,7 +17,7 @@ pip install sag-py-cache-decorator
 
 ## How to use
 ```python
-from sag_py_cache_decorator import lru_cache
+from sag_py_cache_decorator.lru_cache import lru_cache
 
 @lru_cache(maxsize=3)
 def my_function(str: str, str2: str) -> str:
@@ -33,7 +33,7 @@ Available decorator arguments:
 | maxsize  | If this size is reached, the least recently used cache item will be removed. Can be set to None to have a unlimited cache. | 128     |
 
 ```python
-from sag_py_cache_decorator import lru_cache
+from sag_py_cache_decorator.lru_cache import lru_cache
 
 @lru_cache(maxsize=3)
 def my_function(
