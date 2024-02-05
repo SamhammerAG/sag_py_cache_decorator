@@ -14,17 +14,18 @@ F = TypeVar("F", bound=Callable[..., Any])
 
 def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
     cache = LRU(maxsize=maxsize)
-    F.cache = cache
 
     def decorator(func: F) -> F:
+        setattr(func, 'cache', cache)
+
         if inspect.iscoroutinefunction(func):
 
             async def wrapper_async(
-                *args: Any,
-                lru_use_cache: bool = True,
-                lru_clear_cache: bool = False,
-                lru_clear_arg_cache: bool = False,
-                **kw: Any
+                    *args: Any,
+                    lru_use_cache: bool = True,
+                    lru_clear_cache: bool = False,
+                    lru_clear_arg_cache: bool = False,
+                    **kw: Any
             ) -> Any:
                 key = KEY(args, kw)
 
@@ -53,11 +54,11 @@ def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
         else:
 
             def wrapper_sync(
-                *args: Any,
-                lru_use_cache: bool = True,
-                lru_clear_cache: bool = False,
-                lru_clear_arg_cache: bool = False,
-                **kw: Any
+                    *args: Any,
+                    lru_use_cache: bool = True,
+                    lru_clear_cache: bool = False,
+                    lru_clear_arg_cache: bool = False,
+                    **kw: Any
             ) -> Any:
                 key = KEY(args, kw)
 
