@@ -1,5 +1,6 @@
 import inspect
 import logging
+from functools import wraps
 from typing import Any, Callable, Optional, TypeVar, cast
 
 from sag_py_cache_decorator.cache.key import KEY
