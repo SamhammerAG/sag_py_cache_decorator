@@ -14,6 +14,7 @@ F = TypeVar("F", bound=Callable[..., Any])
 
 def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
     cache = LRU(maxsize=maxsize)
+    F.cache = cache
 
     def decorator(func: F) -> F:
         if inspect.iscoroutinefunction(func):
