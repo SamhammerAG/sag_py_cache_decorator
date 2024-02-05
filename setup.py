@@ -11,7 +11,7 @@ with open("requirements-dev.txt", "r") as fin:
 
 setuptools.setup(
     name="sag-py-cache-decorator",
-    version="0.1.0",
+    version="0.0.3253",
     description="A decorator to cache method call results with similar parameters",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
