@@ -20,6 +20,7 @@ def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
 
         if inspect.iscoroutinefunction(func):
 
+            @wraps(func)
             async def wrapper_async(
                     *args: Any,
                     lru_use_cache: bool = True,
@@ -53,6 +54,7 @@ def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
 
         else:
 
+            @wraps(func)
             def wrapper_sync(
                     *args: Any,
                     lru_use_cache: bool = True,
