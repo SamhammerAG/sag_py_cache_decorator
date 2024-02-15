@@ -1,6 +1,5 @@
 import inspect
 import logging
-from functools import wraps
 from typing import Any, Callable, Optional, TypeVar, cast
 
 from sag_py_cache_decorator.cache.key import KEY
@@ -17,17 +16,14 @@ def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
     cache = LRU(maxsize=maxsize)
 
     def decorator(func: F) -> F:
-        setattr(func, 'cache', cache)
-
         if inspect.iscoroutinefunction(func):
 
-            @wraps(func)
             async def wrapper_async(
-                    *args: Any,
-                    lru_use_cache: bool = True,
-                    lru_clear_cache: bool = False,
-                    lru_clear_arg_cache: bool = False,
-                    **kw: Any
+                *args: Any,
+                lru_use_cache: bool = True,
+                lru_clear_cache: bool = False,
+                lru_clear_arg_cache: bool = False,
+                **kw: Any
             ) -> Any:
                 key = KEY(args, kw)
 
@@ -55,13 +51,12 @@ def lru_cache(maxsize: Optional[int] = 128) -> Callable[[F], F]:
 
         else:
 
-            @wraps(func)
             def wrapper_sync(
-                    *args: Any,
-                    lru_use_cache: bool = True,
-                    lru_clear_cache: bool = False,
-                    lru_clear_arg_cache: bool = False,
-                    **kw: Any
+                *args: Any,
+                lru_use_cache: bool = True,
+                lru_clear_cache: bool = False,
+                lru_clear_arg_cache: bool = False,
+                **kw: Any
             ) -> Any:
                 key = KEY(args, kw)
 
