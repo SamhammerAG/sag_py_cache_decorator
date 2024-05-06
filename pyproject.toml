@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sag-py-cache-decorator"
-version = "0.1.1"
+version = "0.1.2"
 description = "A decorator to cache method call results with similar parameters"
 authors = ["Samhammer AG"]
 license = "MIT"
