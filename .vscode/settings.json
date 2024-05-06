@@ -20,6 +20,9 @@
         "htmlcov": true,
         "venv": true,
     },
+    "python.analysis.extraPaths": [
+        "../base"
+    ],
     "python.testing.pytestArgs": [
         "tests"
     ],
@@ -53,5 +56,14 @@
         "."
     ],
     "todo-tree.general.showActivityBarBadge": true,
-    "todo-tree.general.statusBar": "current file"
+    "todo-tree.general.statusBar": "current file",
+    "cSpell.words": [
+        "fastapi",
+        "ndarray",
+        "pydantic",
+        "Starlette",
+        "tessdata",
+        "tesseract",
+        "uvicorn"
+    ]
 }

@@ -6,7 +6,6 @@
 	},
 	"customizations": {
 		"vscode": {
-			// Set *default* container specific settings.json values on container create.
 			"settings": {
 				"python.pythonPath": "/usr/local/bin/python",
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
@@ -17,7 +16,6 @@
 				],
 				"flake8.importStrategy": "fromEnvironment"
 			},
-			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"AykutSarac.jsoncrack-vscode",
 				"eamodio.gitlens",
