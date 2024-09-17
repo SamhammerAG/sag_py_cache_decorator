@@ -1,6 +1,6 @@
 import contextlib
 from collections import OrderedDict
-from typing import Any, Optional
+from typing import Any
 
 from sag_py_cache_decorator.cache.key import KEY
 
@@ -10,7 +10,7 @@ class LRU(OrderedDict):  # type: ignore
     The longest unused cached parameter result is deleted after the max size is reached.
     """
 
-    def __init__(self, maxsize: Optional[int], *args: Any, **kwargs: Any) -> None:
+    def __init__(self, maxsize: int | None, *args: Any, **kwargs: Any) -> None:
         self.maxsize = maxsize
         super().__init__(*args, **kwargs)
 
