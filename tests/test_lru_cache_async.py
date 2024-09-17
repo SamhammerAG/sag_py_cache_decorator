@@ -10,7 +10,8 @@ from tests.data import async_func_clear_arg_cache, async_func_clear_cache, async
 class TestLruCache(TestCase):
     def test_lru_cache_with_cache_usage(self) -> None:
         # Arrange
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         reset_counter()
 
         # Act
