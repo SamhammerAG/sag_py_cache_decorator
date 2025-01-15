@@ -1,7 +1,7 @@
 -r requirements.txt
+build>=1.1.1
 flake8
 mypy
-build
 
 pytest
 pytest-asyncio
@@ -9,9 +9,9 @@ pytest-cov
 
 # Toml and coverage temporarely fixes compatibility issues between coverage-lcov and coverage
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
-toml
 coverage
 coverage-lcov
+toml
 
 mock
 types-mock
