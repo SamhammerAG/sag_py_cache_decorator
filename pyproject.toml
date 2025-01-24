@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sag-py-cache-decorator"
-version = "0.3.0"
+version = "0.3.1"
 description = "A decorator to cache method call results with similar parameters"
 authors = ["Samhammer AG"]
 license = "MIT"
@@ -12,7 +12,7 @@ python = "^3.12"
 [tool.poetry.group.dev.dependencies]
 flake8 = "*"
 mypy = "*"
-build = "*"
+build = ">=1.1.1"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
@@ -21,6 +21,7 @@ toml = "*"
 coverage = "*"
 mock = "*"
 types-mock = "*"
+zipp = ">=3.19.1"
 
 [build-system]
 requires = ["setuptools>=61.0"]
