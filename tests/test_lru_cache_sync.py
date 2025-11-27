@@ -78,7 +78,9 @@ class TestLruCache(TestCase):
         result1_second = sync_func_clear_cache("one", "one", lru_clear_cache=False)
         result2_second = sync_func_clear_cache("two", "two", lru_clear_cache=False)
 
-        result1_third = sync_func_clear_cache("one", "one", lru_clear_cache=True)  # Clear
+        result1_third = sync_func_clear_cache(
+            "one", "one", lru_clear_cache=True
+        )  # Clear
         result2_third = sync_func_clear_cache("two", "two", lru_clear_cache=False)
 
         result1_fourth = sync_func_clear_cache("one", "one", lru_clear_cache=False)
@@ -102,17 +104,31 @@ class TestLruCache(TestCase):
         reset_counter()
 
         # Act
-        result1 = sync_func_clear_arg_cache("one", "one", lru_clear_arg_cache=True)  # May not fail, if not yet cached
+        result1 = sync_func_clear_arg_cache(
+            "one", "one", lru_clear_arg_cache=True
+        )  # May not fail, if not yet cached
         result2 = sync_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
 
-        result1_second = sync_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False)
-        result2_second = sync_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        result1_second = sync_func_clear_arg_cache(
+            "one", "one", lru_clear_arg_cache=False
+        )
+        result2_second = sync_func_clear_arg_cache(
+            "two", "two", lru_clear_arg_cache=False
+        )
 
-        result1_third = sync_func_clear_arg_cache("one", "one", lru_clear_arg_cache=True)  # Clear for args: one, one
-        result2_third = sync_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        result1_third = sync_func_clear_arg_cache(
+            "one", "one", lru_clear_arg_cache=True
+        )  # Clear for args: one, one
+        result2_third = sync_func_clear_arg_cache(
+            "two", "two", lru_clear_arg_cache=False
+        )
 
-        result1_fourth = sync_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False)
-        result2_fourth = sync_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        result1_fourth = sync_func_clear_arg_cache(
+            "one", "one", lru_clear_arg_cache=False
+        )
+        result2_fourth = sync_func_clear_arg_cache(
+            "two", "two", lru_clear_arg_cache=False
+        )
 
         # Assert
         self.assertEqual(result1, "one-one-1")

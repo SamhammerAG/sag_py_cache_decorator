@@ -30,7 +30,9 @@ def sync_func_clear_cache(str1: str, str2: str, lru_clear_cache: bool = False) -
 
 
 @lru_cache(maxsize=3)
-def sync_func_clear_arg_cache(str1: str, str2: str, lru_clear_arg_cache: bool = False) -> str:
+def sync_func_clear_arg_cache(
+    str1: str, str2: str, lru_clear_arg_cache: bool = False
+) -> str:
     global counter
     counter = counter + 1
     return f"{str1}-{str2}-{counter}"
@@ -77,14 +79,18 @@ async def async_func_use_cache(str1: str, str2: str, lru_use_cache: bool = True)
 
 
 @lru_cache(maxsize=3)
-async def async_func_clear_cache(str1: str, str2: str, lru_clear_cache: bool = False) -> str:
+async def async_func_clear_cache(
+    str1: str, str2: str, lru_clear_cache: bool = False
+) -> str:
     global counter
     counter = counter + 1
     return f"{str1}-{str2}-{counter}"
 
 
 @lru_cache(maxsize=3)
-async def async_func_clear_arg_cache(str1: str, str2: str, lru_clear_arg_cache: bool = False) -> str:
+async def async_func_clear_arg_cache(
+    str1: str, str2: str, lru_clear_arg_cache: bool = False
+) -> str:
     global counter
     counter = counter + 1
     return f"{str1}-{str2}-{counter}"
