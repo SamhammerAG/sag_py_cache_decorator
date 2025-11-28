@@ -1,6 +1,5 @@
 -r requirements.txt
 build>=1.2.2.post1
-flake8
 mypy
 
 pytest
@@ -11,6 +10,7 @@ pytest-cov
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
 coverage
 coverage-lcov
+ruff
 toml
 
 mock

@@ -4,7 +4,12 @@ from unittest import TestCase
 # Tests another import - e.g call from multiple files in real life => should still be the same cache
 from tests.data import async_func
 from tests.data import async_func as async_func_second_import
-from tests.data import async_func_clear_arg_cache, async_func_clear_cache, async_func_use_cache, reset_counter
+from tests.data import (
+    async_func_clear_arg_cache,
+    async_func_clear_cache,
+    async_func_use_cache,
+    reset_counter,
+)
 
 
 class TestLruCache(TestCase):
@@ -46,13 +51,25 @@ class TestLruCache(TestCase):
         reset_counter()
 
         # Act
-        result1 = loop.run_until_complete(async_func_use_cache("one", "one", lru_use_cache=False))
-        result2 = loop.run_until_complete(async_func_use_cache("two", "two", lru_use_cache=False))
-        result3 = loop.run_until_complete(async_func_use_cache("three", "three", lru_use_cache=False))
+        result1 = loop.run_until_complete(
+            async_func_use_cache("one", "one", lru_use_cache=False)
+        )
+        result2 = loop.run_until_complete(
+            async_func_use_cache("two", "two", lru_use_cache=False)
+        )
+        result3 = loop.run_until_complete(
+            async_func_use_cache("three", "three", lru_use_cache=False)
+        )
 
-        result1_second = loop.run_until_complete(async_func_use_cache("one", "one", lru_use_cache=False))
-        result2_second = loop.run_until_complete(async_func_use_cache("two", "two", lru_use_cache=False))
-        result3_second = loop.run_until_complete(async_func_use_cache("three", "three", lru_use_cache=False))
+        result1_second = loop.run_until_complete(
+            async_func_use_cache("one", "one", lru_use_cache=False)
+        )
+        result2_second = loop.run_until_complete(
+            async_func_use_cache("two", "two", lru_use_cache=False)
+        )
+        result3_second = loop.run_until_complete(
+            async_func_use_cache("three", "three", lru_use_cache=False)
+        )
 
         # Assert
         self.assertEqual(result1, "one-one-1")
@@ -69,17 +86,33 @@ class TestLruCache(TestCase):
         reset_counter()
 
         # Act
-        result1 = loop.run_until_complete(async_func_clear_cache("one", "one", lru_clear_cache=False))
-        result2 = loop.run_until_complete(async_func_clear_cache("two", "two", lru_clear_cache=False))
+        result1 = loop.run_until_complete(
+            async_func_clear_cache("one", "one", lru_clear_cache=False)
+        )
+        result2 = loop.run_until_complete(
+            async_func_clear_cache("two", "two", lru_clear_cache=False)
+        )
 
-        result1_second = loop.run_until_complete(async_func_clear_cache("one", "one", lru_clear_cache=False))
-        result2_second = loop.run_until_complete(async_func_clear_cache("two", "two", lru_clear_cache=False))
+        result1_second = loop.run_until_complete(
+            async_func_clear_cache("one", "one", lru_clear_cache=False)
+        )
+        result2_second = loop.run_until_complete(
+            async_func_clear_cache("two", "two", lru_clear_cache=False)
+        )
 
-        result1_third = loop.run_until_complete(async_func_clear_cache("one", "one", lru_clear_cache=True))  # Clear
-        result2_third = loop.run_until_complete(async_func_clear_cache("two", "two", lru_clear_cache=False))
+        result1_third = loop.run_until_complete(
+            async_func_clear_cache("one", "one", lru_clear_cache=True)
+        )  # Clear
+        result2_third = loop.run_until_complete(
+            async_func_clear_cache("two", "two", lru_clear_cache=False)
+        )
 
-        result1_fourth = loop.run_until_complete(async_func_clear_cache("one", "one", lru_clear_cache=False))
-        result2_fourth = loop.run_until_complete(async_func_clear_cache("two", "two", lru_clear_cache=False))
+        result1_fourth = loop.run_until_complete(
+            async_func_clear_cache("one", "one", lru_clear_cache=False)
+        )
+        result2_fourth = loop.run_until_complete(
+            async_func_clear_cache("two", "two", lru_clear_cache=False)
+        )
 
         # Assert
         self.assertEqual(result1, "one-one-1")
@@ -103,18 +136,30 @@ class TestLruCache(TestCase):
         result1 = loop.run_until_complete(
             async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=True)
         )  # May not fail if not yet cached
-        result2 = loop.run_until_complete(async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False))
+        result2 = loop.run_until_complete(
+            async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        )
 
-        result1_second = loop.run_until_complete(async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False))
-        result2_second = loop.run_until_complete(async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False))
+        result1_second = loop.run_until_complete(
+            async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False)
+        )
+        result2_second = loop.run_until_complete(
+            async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        )
 
         result1_third = loop.run_until_complete(
             async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=True)
         )  # Clear for args: one, one
-        result2_third = loop.run_until_complete(async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False))
+        result2_third = loop.run_until_complete(
+            async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        )
 
-        result1_fourth = loop.run_until_complete(async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False))
-        result2_fourth = loop.run_until_complete(async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False))
+        result1_fourth = loop.run_until_complete(
+            async_func_clear_arg_cache("one", "one", lru_clear_arg_cache=False)
+        )
+        result2_fourth = loop.run_until_complete(
+            async_func_clear_arg_cache("two", "two", lru_clear_arg_cache=False)
+        )
 
         # Assert
         self.assertEqual(result1, "one-one-1")

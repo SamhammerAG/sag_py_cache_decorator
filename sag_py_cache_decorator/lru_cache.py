@@ -27,26 +27,34 @@ def lru_cache(maxsize: int | None = 128) -> Callable[[F], F]:
                 lru_use_cache: bool = True,
                 lru_clear_cache: bool = False,
                 lru_clear_arg_cache: bool = False,
-                **kw: Any
+                **kw: Any,
             ) -> Any:
                 key = KEY(args, kw)
 
-                _clear_requested_cache_items(cache, lru_clear_cache, lru_clear_arg_cache, func, key)
+                _clear_requested_cache_items(
+                    cache, lru_clear_cache, lru_clear_arg_cache, func, key
+                )
 
                 if not lru_use_cache:
                     logger.debug(
-                        "Skipping cache for function %s with argument hash %s", func.__qualname__, key.__hash__
+                        "Skipping cache for function %s with argument hash %s",
+                        func.__qualname__,
+                        key.__hash__,
                     )
                     return await func(*args, **kw)
 
                 if key in cache:
                     logger.debug(
-                        "Using cached result for function %s with argument hash %s", func.__qualname__, key.__hash__
+                        "Using cached result for function %s with argument hash %s",
+                        func.__qualname__,
+                        key.__hash__,
                     )
                     return cache[key]
 
                 logger.debug(
-                    "Executing function %s with argument hash %s and caching result", func.__qualname__, key.__hash__
+                    "Executing function %s with argument hash %s and caching result",
+                    func.__qualname__,
+                    key.__hash__,
                 )
                 cache[key] = await func(*args, **kw)
                 return cache[key]
@@ -61,26 +69,34 @@ def lru_cache(maxsize: int | None = 128) -> Callable[[F], F]:
                 lru_use_cache: bool = True,
                 lru_clear_cache: bool = False,
                 lru_clear_arg_cache: bool = False,
-                **kw: Any
+                **kw: Any,
             ) -> Any:
                 key = KEY(args, kw)
 
-                _clear_requested_cache_items(cache, lru_clear_cache, lru_clear_arg_cache, func, key)
+                _clear_requested_cache_items(
+                    cache, lru_clear_cache, lru_clear_arg_cache, func, key
+                )
 
                 if not lru_use_cache:
                     logger.debug(
-                        "Skipping cache for function %s with argument hash %s", func.__qualname__, key.__hash__
+                        "Skipping cache for function %s with argument hash %s",
+                        func.__qualname__,
+                        key.__hash__,
                     )
                     return func(*args, **kw)
 
                 if key in cache:
                     logger.debug(
-                        "Using cached result for function %s with argument hash %s", func.__qualname__, key.__hash__
+                        "Using cached result for function %s with argument hash %s",
+                        func.__qualname__,
+                        key.__hash__,
                     )
                     return cache[key]
 
                 logger.debug(
-                    "Executing function %s with argument hash %s and caching result", func.__qualname__, key.__hash__
+                    "Executing function %s with argument hash %s and caching result",
+                    func.__qualname__,
+                    key.__hash__,
                 )
                 cache[key] = func(*args, **kw)
                 return cache[key]
@@ -99,4 +115,8 @@ def _clear_requested_cache_items(
 
     if lru_clear_arg_cache:
         cache.remove_by_key(key)
-        logger.debug("Cleared argument cache for function %s with argument hash %s", func.__qualname__, key.__hash__)
+        logger.debug(
+            "Cleared argument cache for function %s with argument hash %s",
+            func.__qualname__,
+            key.__hash__,
+        )
