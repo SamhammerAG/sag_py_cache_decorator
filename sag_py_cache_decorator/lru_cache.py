@@ -1,5 +1,7 @@
+import asyncio
 import inspect
 import logging
+from collections import defaultdict
 from functools import wraps
 from typing import Any, Callable, TypeVar, cast
 
@@ -7,6 +9,9 @@ from sag_py_cache_decorator.cache.key import KEY
 from sag_py_cache_decorator.cache.lru import LRU
 
 logger = logging.getLogger(__name__)
+
+# one lock per cache key
+_async_locks: dict[KEY, asyncio.Lock] = defaultdict(asyncio.Lock)
 
 # With python 3.10 param spec can be used instead - as described here:
 # https://stackoverflow.com/questions/66408662/type-annotations-for-decorators
@@ -43,21 +48,24 @@ def lru_cache(maxsize: int | None = 128) -> Callable[[F], F]:
                     )
                     return await func(*args, **kw)
 
-                if key in cache:
+                lock = _async_locks[key]
+
+                async with lock:
+                    if key in cache:
+                        logger.debug(
+                            "Using cached result for function %s with argument hash %s",
+                            func.__qualname__,
+                            key.__hash__,
+                        )
+                        return cache[key]
+
                     logger.debug(
-                        "Using cached result for function %s with argument hash %s",
+                        "Executing function %s with argument hash %s and caching result",
                         func.__qualname__,
                         key.__hash__,
                     )
+                    cache[key] = await func(*args, **kw)
                     return cache[key]
-
-                logger.debug(
-                    "Executing function %s with argument hash %s and caching result",
-                    func.__qualname__,
-                    key.__hash__,
-                )
-                cache[key] = await func(*args, **kw)
-                return cache[key]
 
             return cast(F, wrapper_async)
 
